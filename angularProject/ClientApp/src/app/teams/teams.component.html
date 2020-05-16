@@ -1,0 +1,36 @@
+<h1 id="tableLabel">Teams</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+<p *ngIf="!teams"><em>Loading...</em></p>
+
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="teams">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Player1</th>
+      <th>Player2</th>
+      <th>Player3</th>
+      <th>Player4</th>
+      <th>Player5</th>
+      <th>Player6</th>
+      <th>Player7</th>
+      <th>Player8</th>
+      <th>Player9</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let team of teams">
+      <td>{{ team.name }}</td>
+      <td>{{ team.player1 }}</td>
+      <td>{{ team.player2 }}</td>
+      <td>{{ team.player3 }}</td>
+      <td>{{ team.player4 }}</td>
+      <td>{{ team.player5 }}</td>
+      <td>{{ team.player6 }}</td>
+      <td>{{ team.player7 }}</td>
+      <td>{{ team.player8 }}</td>
+      <td>{{ team.player9 }}</td>
+    </tr>
+  </tbody>
+</table>

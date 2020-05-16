@@ -1,0 +1,22 @@
+<h1 id="tableLabel">Matchs</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+<p *ngIf="!matchs"><em>Loading...</em></p>
+
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="matchs">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Team - 1</th>
+      <th>Team - 2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let match of matchs">
+      <td>{{ match.name }}</td>
+      <td>{{ match.teamA }}</td>
+      <td>{{ match.teamB }}</td>
+    </tr>
+  </tbody>
+</table>
