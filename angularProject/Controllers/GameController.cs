@@ -21,11 +21,13 @@ namespace angularProject.Controllers
         // GET: api/Game
         [HttpGet]
         [Route("[controller]/players")]
-        public IActionResult playersGet()
+        public async Task<IActionResult> playersGet()
         {
             var PlayersModel = new List<PlayersModel>();
-            var Players = context.PlayerT
-                .ToList();
+            var Players = await context.PlayerT
+                .ToListAsync();
+            if(!Players.Any())
+                return NotFound();
             Players.ForEach(player =>
             {
                 PlayersModel.Add(new PlayersModel() {
@@ -43,9 +45,9 @@ namespace angularProject.Controllers
 
         [HttpGet]
         [Route("[controller]/players/{id}")]
-        public PlayersModel Get(Guid id)
+        public async Task<PlayersModel> Get(Guid id)
         {
-            var player = context.PlayerT.FirstOrDefault(x => x.PlayerId == id);
+            var player = await context.PlayerT.FirstOrDefaultAsync(x => x.PlayerId == id);
             return new PlayersModel()
             {
                 Id = player.PlayerId,
@@ -56,7 +58,7 @@ namespace angularProject.Controllers
 
         [HttpPost]
         [Route("[controller]/playersPost")]
-        public IActionResult Post(PlayersModel player)
+        public async Task<IActionResult> Post(PlayersModel player)
         {
             if (ModelState.IsValid)
             {
@@ -66,7 +68,7 @@ namespace angularProject.Controllers
                         FirstName = player.firstName,
                         LastName = player.lastName
                     });
-                context.SaveChanges();
+                await context.SaveChangesAsync();
                 return Ok(player);
             }
             return BadRequest(ModelState);
@@ -74,7 +76,7 @@ namespace angularProject.Controllers
 
         [HttpPut]
         [Route("[controller]/playersPut")]
-        public IActionResult Put(PlayersModel player)
+        public async Task<IActionResult> Put(PlayersModel player)
         {
             if (ModelState.IsValid)
             {
@@ -84,7 +86,7 @@ namespace angularProject.Controllers
                     FirstName = player.firstName,
                     LastName = player.lastName
                 });
-                context.SaveChanges();
+                await context.SaveChangesAsync();
                 return Ok(player);
             }
             return BadRequest(ModelState);
@@ -92,13 +94,13 @@ namespace angularProject.Controllers
 
         [HttpDelete]
         [Route("[controller]/players/{id}")]
-        public IActionResult Delete(Guid id)
+        public async Task<IActionResult> Delete(Guid id)
         {
             PlayerT player = context.PlayerT.FirstOrDefault(p => p.PlayerId == id);
             if (player != null)
             {
                 context.PlayerT.Remove(player);
-                context.SaveChanges();
+                await context.SaveChangesAsync();
             }
             return Ok(player);
         }
