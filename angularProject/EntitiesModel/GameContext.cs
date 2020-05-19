@@ -16,10 +16,10 @@ namespace angularProject.Entities
         {
         }
 
-        public virtual DbSet<MatchT> MatchT { get; set; }
-        public virtual DbSet<PlayerT> PlayerT { get; set; }
-        public virtual DbSet<TeamPlayersT> TeamPlayersT { get; set; }
-        public virtual DbSet<TeamT> TeamT { get; set; }
+        public virtual DbSet<Match> Match { get; set; }
+        public virtual DbSet<Player> Player { get; set; }
+        public virtual DbSet<TeamPlayers> TeamPlayers { get; set; }
+        public virtual DbSet<Team> Team { get; set; }
 
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //{
@@ -31,7 +31,7 @@ namespace angularProject.Entities
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<MatchT>(entity =>
+            modelBuilder.Entity<Match>(entity =>
             {
                 entity.HasKey(e => e.MatchId);
 
@@ -64,7 +64,7 @@ namespace angularProject.Entities
                     .HasConstraintName("FK_match_t_team_t1");
             });
 
-            modelBuilder.Entity<PlayerT>(entity =>
+            modelBuilder.Entity<Player>(entity =>
             {
                 entity.HasKey(e => e.PlayerId)
                     .HasName("PK_Player_t_1");
@@ -82,7 +82,7 @@ namespace angularProject.Entities
                     .HasMaxLength(50);
             });
 
-            modelBuilder.Entity<TeamPlayersT>(entity =>
+            modelBuilder.Entity<TeamPlayers>(entity =>
             {
                 entity.HasKey(e => e.TeamPlayersId);
 
@@ -156,7 +156,7 @@ namespace angularProject.Entities
                     .HasConstraintName("FK_teamPlayers_t_Player_t8");
             });
 
-            modelBuilder.Entity<TeamT>(entity =>
+            modelBuilder.Entity<Team>(entity =>
             {
                 entity.HasKey(e => e.TeamId);
 

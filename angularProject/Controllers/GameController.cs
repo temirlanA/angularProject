@@ -21,10 +21,10 @@ namespace angularProject.Controllers
         // GET: api/Game
         [HttpGet]
         [Route("[controller]/players")]
-        public async Task<IActionResult> playersGet()
+        public async Task<IActionResult> Get()
         {
             var PlayersModel = new List<PlayersModel>();
-            var Players = await context.PlayerT
+            var Players = await context.Player
                 .ToListAsync();
             if(!Players.Any())
                 return NotFound();
@@ -47,7 +47,7 @@ namespace angularProject.Controllers
         [Route("[controller]/players/{id}")]
         public async Task<PlayersModel> Get(Guid id)
         {
-            var player = await context.PlayerT.FirstOrDefaultAsync(x => x.PlayerId == id);
+            var player = await context.Player.FirstOrDefaultAsync(x => x.PlayerId == id);
             return new PlayersModel()
             {
                 Id = player.PlayerId,
@@ -57,13 +57,13 @@ namespace angularProject.Controllers
         }
 
         [HttpPost]
-        [Route("[controller]/playersPost")]
+        [Route("[controller]/players")]
         public async Task<IActionResult> Post(PlayersModel player)
         {
             if (ModelState.IsValid)
             {
-                context.PlayerT
-                    .Add(new PlayerT()
+                context.Player
+                    .Add(new Player()
                     {
                         FirstName = player.firstName,
                         LastName = player.lastName
@@ -75,12 +75,12 @@ namespace angularProject.Controllers
         }
 
         [HttpPut]
-        [Route("[controller]/playersPut")]
+        [Route("[controller]/players")]
         public async Task<IActionResult> Put(PlayersModel player)
         {
             if (ModelState.IsValid)
             {
-                context.Update(new PlayerT()
+                context.Update(new Player()
                 {
                     PlayerId = player.Id,
                     FirstName = player.firstName,
@@ -96,10 +96,10 @@ namespace angularProject.Controllers
         [Route("[controller]/players/{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
-            PlayerT player = context.PlayerT.FirstOrDefault(p => p.PlayerId == id);
+            Player player = context.Player.FirstOrDefault(p => p.PlayerId == id);
             if (player != null)
             {
-                context.PlayerT.Remove(player);
+                context.Player.Remove(player);
                 await context.SaveChangesAsync();
             }
             return Ok(player);
@@ -112,28 +112,28 @@ namespace angularProject.Controllers
 
         [HttpGet]
         [Route("[controller]/teams")]
-        public IActionResult teamsGet()
+        public IActionResult Teams()
         {
             var TeamsModel = new List<TeamsModel>();
-            var Teams = context.TeamT
+            var Teams = context.Team
                 .ToList();
             Teams.ForEach(team =>
             {
-                var teamPlayers = context.TeamPlayersT
+                var teamPlayers = context.TeamPlayers
                     .Where(teamP => teamP.TeamPlayersId == team.TeamPlayers)
                     .FirstOrDefault();
                 TeamsModel.Add(new TeamsModel() 
                 { 
                     name = team.TeamName, 
-                    player1 = context.PlayerT.Where(player => player.PlayerId == teamPlayers.Player1).FirstOrDefault().LastName,
-                    player2 = context.PlayerT.Where(player => player.PlayerId == teamPlayers.Player2).FirstOrDefault().LastName,
-                    player3 = context.PlayerT.Where(player => player.PlayerId == teamPlayers.Player3).FirstOrDefault().LastName,
-                    player4 = context.PlayerT.Where(player => player.PlayerId == teamPlayers.Player4).FirstOrDefault().LastName,
-                    player5 = context.PlayerT.Where(player => player.PlayerId == teamPlayers.Player5).FirstOrDefault().LastName,
-                    player6 = context.PlayerT.Where(player => player.PlayerId == teamPlayers.Player6).FirstOrDefault().LastName,
-                    player7 = context.PlayerT.Where(player => player.PlayerId == teamPlayers.Player7).FirstOrDefault().LastName,
-                    player8 = context.PlayerT.Where(player => player.PlayerId == teamPlayers.Player8).FirstOrDefault().LastName,
-                    player9 = context.PlayerT.Where(player => player.PlayerId == teamPlayers.Player9).FirstOrDefault().LastName
+                    player1 = context.Player.Where(player => player.PlayerId == teamPlayers.Player1).FirstOrDefault().LastName,
+                    player2 = context.Player.Where(player => player.PlayerId == teamPlayers.Player2).FirstOrDefault().LastName,
+                    player3 = context.Player.Where(player => player.PlayerId == teamPlayers.Player3).FirstOrDefault().LastName,
+                    player4 = context.Player.Where(player => player.PlayerId == teamPlayers.Player4).FirstOrDefault().LastName,
+                    player5 = context.Player.Where(player => player.PlayerId == teamPlayers.Player5).FirstOrDefault().LastName,
+                    player6 = context.Player.Where(player => player.PlayerId == teamPlayers.Player6).FirstOrDefault().LastName,
+                    player7 = context.Player.Where(player => player.PlayerId == teamPlayers.Player7).FirstOrDefault().LastName,
+                    player8 = context.Player.Where(player => player.PlayerId == teamPlayers.Player8).FirstOrDefault().LastName,
+                    player9 = context.Player.Where(player => player.PlayerId == teamPlayers.Player9).FirstOrDefault().LastName
                 });
             });
 
@@ -143,18 +143,18 @@ namespace angularProject.Controllers
 
         [HttpGet]
         [Route("[controller]/matchs")]
-        public IActionResult matchsGet()
+        public IActionResult Matchs()
         {
             var MatchsModel = new List<MatchsModel>();
-            var Matchs = context.MatchT
+            var Matchs = context.Match
                 .ToList();
             Matchs.ForEach(match =>
             {
                 MatchsModel.Add(new MatchsModel() 
                 { 
                     name = match.MacthName,
-                    teamA = context.TeamT.Where(team => team.TeamId == match.TeamA).FirstOrDefault().TeamName,
-                    teamB = context.TeamT.Where(team => team.TeamId == match.TeamB).FirstOrDefault().TeamName,
+                    teamA = context.Team.Where(team => team.TeamId == match.TeamA).FirstOrDefault().TeamName,
+                    teamB = context.Team.Where(team => team.TeamId == match.TeamB).FirstOrDefault().TeamName,
                 });
             });
 

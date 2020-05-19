@@ -7,8 +7,6 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
-import { CounterComponent } from './counter/counter.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { PlayersComponent } from './players/players.component';
 import { MatchsComponent } from './matchs/matchs.component';
 import { TeamsComponent } from './teams/teams.component';
@@ -18,8 +16,6 @@ import { TeamsComponent } from './teams/teams.component';
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    CounterComponent,
-    FetchDataComponent,
     PlayersComponent,
     MatchsComponent,
     TeamsComponent,
@@ -30,8 +26,6 @@ import { TeamsComponent } from './teams/teams.component';
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'counter', component: CounterComponent },
-      { path: 'fetch-data', component: FetchDataComponent },
       { path: 'players', component: PlayersComponent },
       { path: 'matchs', component: MatchsComponent },
       { path: 'teams', component: TeamsComponent },

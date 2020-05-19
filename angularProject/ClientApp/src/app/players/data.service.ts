@@ -19,10 +19,10 @@ export class DataService {
   }
 
   createPlayer(player: Players) {
-    return this.http.post(this.url + 'Post', player);
+    return this.http.post(this.url, player);
   }
   updatePlayer(player: Players) {
-    return this.http.put(this.url + 'Put', player);
+    return this.http.put(this.url, player);
   }
   deletePlayer(id: string) {
     return this.http.delete(this.url + '/' + id);
